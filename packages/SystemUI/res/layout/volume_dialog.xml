@@ -49,7 +49,8 @@
                     android:padding="@dimen/volume_dialog_ringer_icon_padding"
                     android:background="@drawable/ripple_drawable_20dp_transparent"
                     android:tint="@android:color/white"
-                    android:layout_gravity="center"                                        
+                    android:layout_gravity="center"  
+                    android:paddingRight="@dimen/volume_dialog_rows_padding_right"                                                            
                     android:soundEffectsEnabled="false" />
 
             <include layout="@layout/volume_dnd_icon"
