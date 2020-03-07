@@ -61,10 +61,10 @@ import com.android.systemui.DejankUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
 import com.android.systemui.R;
+import com.android.systemui.crdroid.NotificationLightsView;
 import com.android.systemui.classifier.FalsingManager;
 import com.android.systemui.fragments.FragmentHostManager;
 import com.android.systemui.fragments.FragmentHostManager.FragmentListener;
-import com.android.systemui.crdroid.NotificationLightsView;
 import com.android.systemui.plugins.qs.QS;
 import com.android.systemui.statusbar.ExpandableNotificationRow;
 import com.android.systemui.statusbar.ExpandableView;
@@ -2937,7 +2937,7 @@ public class NotificationPanelView extends PanelView implements
                 && dozeParameters.getAlwaysOn();
         boolean pulseLights = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.PULSE_AMBIENT_LIGHT, 0, UserHandle.USER_CURRENT) != 0;
-            
+
         if (animatePulse) {
             mAnimateNextPositionUpdate = true;
         }
@@ -2947,7 +2947,7 @@ public class NotificationPanelView extends PanelView implements
                 mPulseLightsView.animateNotification();
                 mPulseLightsView.setPulsing(pulsing);
             }
-        }            
+        }
         mNotificationStackScroller.setPulsing(pulsing, animatePulse);
         mKeyguardStatusView.setPulsing(pulsing, animatePulse);
     }
