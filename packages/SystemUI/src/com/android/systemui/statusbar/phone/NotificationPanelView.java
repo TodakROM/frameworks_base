@@ -121,7 +121,9 @@ public class NotificationPanelView extends PanelView implements
             "system:" + Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN;
     private static final String LOCKSCREEN_ENABLE_QS =
             "global:" + Settings.Global.LOCKSCREEN_ENABLE_QS;
-
+    private static final String PULSE_AMBIENT_LIGHT =
+            "system:" + Settings.System.PULSE_AMBIENT_LIGHT;
+                
     private static final Rect mDummyDirtyRect = new Rect(0, 0, 1, 1);
 
     public static final long DOZE_ANIMATION_DURATION = 700;
@@ -160,6 +162,7 @@ public class NotificationPanelView extends PanelView implements
     private int mTrackingPointer;
     private VelocityTracker mQsVelocityTracker;
     private boolean mQsTracking;
+    private boolean mPulseLights;
 
     /**
      * If set, the ongoing touch gesture might both trigger the expansion in {@link PanelView} and
@@ -392,6 +395,8 @@ public class NotificationPanelView extends PanelView implements
         tunerService.addTunable(this, QS_SMART_PULLDOWN);
         tunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
         tunerService.addTunable(this, LOCKSCREEN_ENABLE_QS);
+        Dependency.get(TunerService.class).addTunable(this, PULSE_AMBIENT_LIGHT);
+            
     }
 
     @Override
@@ -424,6 +429,10 @@ public class NotificationPanelView extends PanelView implements
                 mStatusBarAllowedOnSecureKeyguard =
                         TunerService.parseIntegerSwitch(newValue, true);
                 mStatusBar.updateQsExpansionEnabled();
+                break;
+            case PULSE_AMBIENT_LIGHT:
+                mPulseLights =
+                        TunerService.parseIntegerSwitch(newValue, false);
                 break;
             default:
                 break;
@@ -2935,13 +2944,11 @@ public class NotificationPanelView extends PanelView implements
         DozeParameters dozeParameters = DozeParameters.getInstance(mContext);
         final boolean animatePulse = !dozeParameters.getDisplayNeedsBlanking()
                 && dozeParameters.getAlwaysOn();
-        boolean pulseLights = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.PULSE_AMBIENT_LIGHT, 0, UserHandle.USER_CURRENT) != 0;
 
         if (animatePulse) {
             mAnimateNextPositionUpdate = true;
         }
-        if ((mPulseLightsView != null) && pulseLights) {
+        if ((mPulseLightsView != null) && mPulseLights) {
             mPulseLightsView.setVisibility(mPulsing ? View.VISIBLE : View.GONE);
             if (mPulsing) {
                 mPulseLightsView.animateNotification();
