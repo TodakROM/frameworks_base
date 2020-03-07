@@ -39,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import androidx.palette.graphics.Palette;
+//import androidx.palette.graphics.Palette;
 
 import com.android.systemui.R;
 
@@ -124,7 +124,7 @@ public class NotificationLightsView extends RelativeLayout {
                     Drawable wallpaperDrawable = wallpaperManager.getDrawable();
                     Bitmap bitmap = ((BitmapDrawable)wallpaperDrawable).getBitmap();
                     if (bitmap != null) {
-                        Palette p = Palette.from(bitmap).generate();
+                        //Palette p = Palette.from(bitmap).generate();
                         int wallColorL = p.getDominantColor(lColor);
                         if (mAutoColorLeft)
                             lColor = wallColorL;
