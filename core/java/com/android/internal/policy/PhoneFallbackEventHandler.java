@@ -119,21 +119,6 @@ public class PhoneFallbackEventHandler implements FallbackEventHandler {
                     dispatcher.startTracking(event, this);
                 } else if (event.isLongPress() && dispatcher.isTracking(event)) {
                     dispatcher.performedLongPress(event);
-                    if (isUserSetupComplete()) {
-                        mView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                        // launch the VoiceDialer
-                        Intent intent = new Intent(Intent.ACTION_VOICE_COMMAND);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            sendCloseSystemWindows();
-                            mContext.startActivity(intent);
-                        } catch (ActivityNotFoundException e) {
-                            startCallActivity();
-                        }
-                    } else {
-                        Log.i(TAG, "Not starting call activity because user "
-                                + "setup is in progress.");
-                    }
                 }
                 return true;
             }
