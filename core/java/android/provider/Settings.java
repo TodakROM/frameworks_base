@@ -5151,18 +5151,6 @@ public final class Settings {
          * @hide
          */
         public static final String FP_UNLOCK_KEYSTORE = "fp_unlock_keystore";	    
-
-        /**
-         * Whether to enable Ambient edge light
-         * @hide
-         */
-        public static final String PULSE_AMBIENT_LIGHT = "pulse_ambient_light";
-
-        /**
-         * What color to use for Ambient edge light
-         * @hide
-         */
-        public static final String PULSE_AMBIENT_LIGHT_COLOR = "pulse_ambient_light_color";
 	    
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
