@@ -30,7 +30,6 @@
         android:visibility="gone" />
 
     <include layout="@layout/lights_view"
-        android:id="@+id/lights_container"
         android:visibility="gone" />
     
     <com.android.systemui.statusbar.phone.NotificationsQuickSettingsContainer
