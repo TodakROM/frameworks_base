@@ -5293,9 +5293,6 @@ public final class Settings {
             PUBLIC_SETTINGS.add(HAPTIC_FEEDBACK_ENABLED);
             PUBLIC_SETTINGS.add(SHOW_WEB_SUGGESTIONS);
             PUBLIC_SETTINGS.add(VIBRATE_WHEN_RINGING);
-            PRIVATE_SETTINGS.add(CAMERA_WAKE_SCREEN);
-            PRIVATE_SETTINGS.add(CAMERA_SLEEP_ON_RELEASE);
-            PRIVATE_SETTINGS.add(CAMERA_LAUNCH);
 	}
 
         /**
@@ -5346,7 +5343,10 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DISPLAY_MODE);
             PRIVATE_SETTINGS.add(RECENTS_OMNI_SWITCH_ENABLED);
-        }
+            PRIVATE_SETTINGS.add(CAMERA_WAKE_SCREEN);
+            PRIVATE_SETTINGS.add(CAMERA_SLEEP_ON_RELEASE);
+            PRIVATE_SETTINGS.add(CAMERA_LAUNCH);
+	}
 
         /**
          * These are all public system settings
