@@ -140,8 +140,6 @@ public class KeyguardStatusView extends GridLayout implements
         @Override
         public void onTimeChanged() {
             refreshTime();
-            refreshLockFont();
-            updateDateStyles();
         }
 
         @Override
@@ -251,8 +249,6 @@ public class KeyguardStatusView extends GridLayout implements
         mClockSeparator.addOnLayoutChangeListener(this);
         mKeyguardSlice.setContentChangeListener(this::onSliceContentChanged);
         onSliceContentChanged();
-
-        updateSettings();
 
         boolean shouldMarquee = KeyguardUpdateMonitor.getInstance(mContext).isDeviceInteractive();
         setEnableMarquee(shouldMarquee);
@@ -523,7 +519,6 @@ public class KeyguardStatusView extends GridLayout implements
 
     public void dozeTimeTick() {
         refreshTime();
-        refreshLockFont();
         mKeyguardSlice.refresh();
     }
 
@@ -753,21 +748,6 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
-    private void updateSettings() {
-        final ContentResolver resolver = getContext().getContentResolver();
-
-        mShowClock = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
-        mShowInfo = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_INFO, 1, UserHandle.USER_CURRENT) == 1;
-        mClockSelection = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT);
-        mDateSelection = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_DATE_SELECTION, 0, UserHandle.USER_CURRENT);
-
-        setStyle();
-    }
-
     private void prepareSmallView(boolean small) {
         if (mWasLatestViewSmall == small || !mClockAvailable ||
                 mClockSelection == 0)
@@ -790,6 +770,7 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void updateAll() {
         updateSettings();
@@ -1214,6 +1195,8 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
+=======
+>>>>>>> parent of 9469c82... Add Lockscreen Clock & Date sizes [1/4]
     public void refreshclocksize() {
         final Resources res = getContext().getResources();
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
