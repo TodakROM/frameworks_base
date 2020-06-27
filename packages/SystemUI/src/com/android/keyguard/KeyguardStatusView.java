@@ -151,10 +151,6 @@ public class KeyguardStatusView extends GridLayout implements
                 refreshTime();
                 updateOwnerInfo();
                 updateLogoutView();
-                updateSettings();
-                refreshLockFont();
-                refreshclocksize();
-                refreshdatesize();
             }
         }
 
@@ -173,10 +169,6 @@ public class KeyguardStatusView extends GridLayout implements
             refreshFormat();
             updateOwnerInfo();
             updateLogoutView();
-            updateSettings();
-            refreshLockFont();
-            refreshclocksize();
-            refreshdatesize();
         }
 
         @Override
@@ -268,10 +260,6 @@ public class KeyguardStatusView extends GridLayout implements
         updateOwnerInfo();
         updateLogoutView();
         updateDark();
-        updateSettings();
-        refreshLockFont();
-        refreshclocksize();
-        refreshdatesize();
         mClockAvailable = true;
         onDensityOrFontScaleChanged();
     }
@@ -543,16 +531,6 @@ public class KeyguardStatusView extends GridLayout implements
         mClockView.refresh();
     }
 
-    private int getLockClockSize() {
-        return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCKCLOCK_FONT_SIZE, 64);
-    }
-
-    private int getLockDateSize() {
-        return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCKDATE_FONT_SIZE, 16);
-    }
-
     private void refreshFormat() {
         if (!mClockAvailable || !mDigitalClock) return;
 
@@ -812,6 +790,7 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
+<<<<<<< HEAD
     public void updateAll() {
         updateSettings();
         mKeyguardSlice.updateSettings();
@@ -1587,6 +1566,8 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
+=======
+>>>>>>> parent of 1d99864... Add Lockscreen Clock & Date sizes [1/3]
     // DateFormat.getBestDateTimePattern is extremely expensive, and refresh is called often.
     // This is an optimization to ensure we only recompute the patterns when the inputs change.
     private static final class Patterns {
