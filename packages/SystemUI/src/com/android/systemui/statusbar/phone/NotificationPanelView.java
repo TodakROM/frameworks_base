@@ -120,6 +120,8 @@ public class NotificationPanelView extends PanelView implements
             "system:" + Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN;
     private static final String LOCKSCREEN_ENABLE_QS =
             "global:" + Settings.Global.LOCKSCREEN_ENABLE_QS;
+    private static final String LOCKSCREEN_STATUS_BAR =
+            "system:" + Settings.System.LOCKSCREEN_STATUS_BAR;
 
     private static final Rect mDummyDirtyRect = new Rect(0, 0, 1, 1);
 
@@ -248,6 +250,7 @@ public class NotificationPanelView extends PanelView implements
     private boolean mAffordanceHasPreview;
     private FalsingManager mFalsingManager;
     private String mLastCameraLaunchSource = KeyguardBottomAreaView.CAMERA_LAUNCH_SOURCE_AFFORDANCE;
+    private boolean mShowLockscreenStatusBar;
 
     private final Callback mCallback = new Callback();
     private final KeyguardMonitor mKeyguardMonitor;
@@ -389,6 +392,7 @@ public class NotificationPanelView extends PanelView implements
         tunerService.addTunable(this, QS_SMART_PULLDOWN);
         tunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
         tunerService.addTunable(this, LOCKSCREEN_ENABLE_QS);
+        tunerService.addTunable(this, LOCKSCREEN_STATUS_BAR);
     }
 
     @Override
@@ -421,6 +425,10 @@ public class NotificationPanelView extends PanelView implements
                 mStatusBarAllowedOnSecureKeyguard =
                         TunerService.parseIntegerSwitch(newValue, true);
                 mStatusBar.updateQsExpansionEnabled();
+                break;
+            case LOCKSCREEN_STATUS_BAR:
+                mShowLockscreenStatusBar =
+                        TunerService.parseIntegerSwitch(newValue, true);
                 break;
             default:
                 break;
@@ -1297,7 +1305,7 @@ public class NotificationPanelView extends PanelView implements
             mQs.animateHeaderSlidingOut();
         } else {
             mKeyguardStatusBar.setAlpha(1f);
-            mKeyguardStatusBar.setVisibility(keyguardShowing ? View.VISIBLE : View.INVISIBLE);
+            mKeyguardStatusBar.setVisibility(keyguardShowing && mShowLockscreenStatusBar ? View.VISIBLE : View.INVISIBLE);
             if (keyguardShowing) {
                 mKeyguardStatusBar.toggleContents(true);
             }
@@ -1376,6 +1384,7 @@ public class NotificationPanelView extends PanelView implements
     };
 
     private void animateKeyguardStatusBarIn(long duration) {
+        if (!mShowLockscreenStatusBar) return;
         mKeyguardStatusBar.setVisibility(View.VISIBLE);
         mKeyguardStatusBar.setAlpha(0f);
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
@@ -1901,7 +1910,7 @@ public class NotificationPanelView extends PanelView implements
         float alphaQsExpansion = 1 - Math.min(1, getQsExpansionFraction() * 2);
         mKeyguardStatusBar.setAlpha(Math.min(getKeyguardContentsAlpha(), alphaQsExpansion)
                 * mKeyguardStatusBarAnimateAlpha);
-        mKeyguardStatusBar.setVisibility(mKeyguardStatusBar.getAlpha() != 0f
+        mKeyguardStatusBar.setVisibility(newAlpha != 0f && !mDozing && !hideForBypass && mShowLockscreenStatusBar
                 && !mDozing ? VISIBLE : INVISIBLE);
     }
 
