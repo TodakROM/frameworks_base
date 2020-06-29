@@ -250,7 +250,7 @@ public class NotificationPanelView extends PanelView implements
     private boolean mAffordanceHasPreview;
     private FalsingManager mFalsingManager;
     private String mLastCameraLaunchSource = KeyguardBottomAreaView.CAMERA_LAUNCH_SOURCE_AFFORDANCE;
-    private boolean mShowLockscreenStatusBar;
+    private boolean mHideLockscreenStatusBar;
 
     private final Callback mCallback = new Callback();
     private final KeyguardMonitor mKeyguardMonitor;
@@ -427,7 +427,7 @@ public class NotificationPanelView extends PanelView implements
                 mStatusBar.updateQsExpansionEnabled();
                 break;
             case HIDE_LOCKSCREEN_STATUS_BAR:
-                mShowLockscreenStatusBar =
+                mHideLockscreenStatusBar =
                         TunerService.parseIntegerSwitch(newValue, false);
                 break;
             default:
@@ -1305,7 +1305,7 @@ public class NotificationPanelView extends PanelView implements
             mQs.animateHeaderSlidingOut();
         } else {
             mKeyguardStatusBar.setAlpha(1f);
-            mKeyguardStatusBar.setVisibility(keyguardShowing && mShowLockscreenStatusBar ? View.VISIBLE : View.INVISIBLE);
+            mKeyguardStatusBar.setVisibility(keyguardShowing && mHideLockscreenStatusBar ? View.VISIBLE : View.INVISIBLE);
             if (keyguardShowing) {
                 mKeyguardStatusBar.toggleContents(true);
             }
@@ -1384,7 +1384,7 @@ public class NotificationPanelView extends PanelView implements
     };
 
     private void animateKeyguardStatusBarIn(long duration) {
-        if (!mShowLockscreenStatusBar) return;
+        if (!mHideLockscreenStatusBar) return;
         mKeyguardStatusBar.setVisibility(View.VISIBLE);
         mKeyguardStatusBar.setAlpha(0f);
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
@@ -1910,7 +1910,7 @@ public class NotificationPanelView extends PanelView implements
         float alphaQsExpansion = 1 - Math.min(1, getQsExpansionFraction() * 2);
         mKeyguardStatusBar.setAlpha(Math.min(getKeyguardContentsAlpha(), alphaQsExpansion)
                 * mKeyguardStatusBarAnimateAlpha);
-        mKeyguardStatusBar.setVisibility(mKeyguardStatusBar.getAlpha() != 0f && mShowLockscreenStatusBar                && !mDozing ? VISIBLE : INVISIBLE);
+        mKeyguardStatusBar.setVisibility(mKeyguardStatusBar.getAlpha() != 0f && mHideLockscreenStatusBar                && !mDozing ? VISIBLE : INVISIBLE);
     }
 
     private void updateKeyguardBottomAreaAlpha() {
