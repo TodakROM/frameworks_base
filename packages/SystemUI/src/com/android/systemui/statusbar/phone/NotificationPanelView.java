@@ -428,7 +428,7 @@ public class NotificationPanelView extends PanelView implements
                 break;
             case HIDE_LOCKSCREEN_STATUS_BAR:
                 mShowLockscreenStatusBar =
-                        TunerService.parseIntegerSwitch(newValue, true);
+                        TunerService.parseIntegerSwitch(newValue, false);
                 break;
             default:
                 break;
