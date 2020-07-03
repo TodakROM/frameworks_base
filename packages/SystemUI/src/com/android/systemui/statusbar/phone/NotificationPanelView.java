@@ -61,6 +61,7 @@ import com.android.systemui.DejankUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
 import com.android.systemui.R;
+import com.android.systemui.crdroid.NotificationLightsView;
 import com.android.systemui.classifier.FalsingManager;
 import com.android.systemui.fragments.FragmentHostManager;
 import com.android.systemui.fragments.FragmentHostManager.FragmentListener;
@@ -255,6 +256,7 @@ public class NotificationPanelView extends PanelView implements
     private final Callback mCallback = new Callback();
     private final KeyguardMonitor mKeyguardMonitor;
     private boolean mStatusBarAllowedOnSecureKeyguard;
+    private NotificationLightsView mPulseLightsView;
 
     private Runnable mHeadsUpExistenceChangedRunnable = new Runnable() {
         @Override
@@ -376,6 +378,7 @@ public class NotificationPanelView extends PanelView implements
         mKeyguardBottomArea = findViewById(R.id.keyguard_bottom_area);
         mQsNavbarScrim = findViewById(R.id.qs_navbar_scrim);
         mLastOrientation = getResources().getConfiguration().orientation;
+        mPulseLightsView = (NotificationLightsView) findViewById(R.id.lights_container);
 
         initBottomArea();
 
@@ -2946,6 +2949,13 @@ public class NotificationPanelView extends PanelView implements
         if (animatePulse) {
             mAnimateNextPositionUpdate = true;
         }
+//        if ((mPulseLightsView != null) && pulseLights) {
+//            mPulseLightsView.setVisibility(mPulsing ? View.VISIBLE : View.GONE);
+//            if (mPulsing) {
+//                mPulseLightsView.animateNotification();
+//                mPulseLightsView.setPulsing(pulsing);
+//            }
+//        }
         mNotificationStackScroller.setPulsing(pulsing, animatePulse);
         mKeyguardStatusView.setPulsing(pulsing, animatePulse);
     }
