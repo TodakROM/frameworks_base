@@ -5158,7 +5158,6 @@ public final class Settings {
          */
         public static final String HIDE_LOCKSCREEN_STATUS_BAR = "hide_lockscreen_status_bar";
 
-<<<<<<< HEAD
         /**
          * Whether to enable Ambient edge light
          * @hide
@@ -5197,8 +5196,6 @@ public final class Settings {
          */
         public static final String LOCKCLOCK_FONT_SIZE = "lockclock_font_size";
 
-=======
->>>>>>> parent of 4ff9fed... Add ambient pulse + changing + Edge layout [2/2]
         /** End of Todak system settings**/
 
         /**
