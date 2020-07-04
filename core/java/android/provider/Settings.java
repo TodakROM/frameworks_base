@@ -5182,6 +5182,20 @@ public final class Settings {
          */
         public static final String PULSE_AMBIENT_LIGHT_LAYOUT = "pulse_ambient_light_layout";
 
+        /**
+         * Change font size for the system lockscreen date
+         *
+         * @hide
+         */
+        public static final String LOCKDATE_FONT_SIZE= "lockdate_font_size";
+
+        /**
+         * Change font size for the system lockscreen clock widget
+         *
+         * @hide
+         */
+        public static final String LOCKCLOCK_FONT_SIZE = "lockclock_font_size";
+
         /** End of Todak system settings**/
 
         /**
