@@ -363,8 +363,8 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
             "system:" + Settings.System.STOCK_STATUSBAR_IN_HIDE;
     private static final String LOCKSCREEN_ALBUMART_FILTER =
             Settings.Secure.LOCKSCREEN_ALBUMART_FILTER;
-    private static final String LOCKSCREEN_CHARGING_ANIMATION =
-            "system:" + Settings.System.LOCKSCREEN_CHARGING_ANIMATION;
+    private static final String LOCKSCREEN_CHARGING_ANIMATION_STYLE =
+            "system:" + Settings.System.LOCKSCREEN_CHARGING_ANIMATION_STYLE;
     private static final String GAMING_MODE_ACTIVE =
             "system:" + Settings.System.GAMING_MODE_ACTIVE;
     private static final String GAMING_MODE_HEADSUP_TOGGLE =
@@ -606,6 +606,8 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
     private final DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 
     private PackageMonitor mPackageMonitor;
+
+    private int mChargingAnimation = 1;
 
     // XXX: gesture research
     private final GestureRecorder mGestureRec = DEBUG_GESTURES
@@ -894,7 +896,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         tunerService.addTunable(this, DISPLAY_CUTOUT_MODE);
         tunerService.addTunable(this, STOCK_STATUSBAR_IN_HIDE);
         tunerService.addTunable(this, LOCKSCREEN_ALBUMART_FILTER);
-        tunerService.addTunable(this, LOCKSCREEN_CHARGING_ANIMATION);
+        tunerService.addTunable(this, LOCKSCREEN_CHARGING_ANIMATION_STYLE);
         tunerService.addTunable(this, GAMING_MODE_ACTIVE);
         tunerService.addTunable(this, GAMING_MODE_HEADSUP_TOGGLE);
         tunerService.addTunable(this, STATUS_BAR_TICKER_ANIMATION_MODE);
@@ -6771,11 +6773,11 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                     mAlbumArtFilter = Integer.valueOf(newValue);
                 } catch (NumberFormatException ex) {}
                 break;
-            case LOCKSCREEN_CHARGING_ANIMATION:
-                boolean showChargingAnimation =
-                        TunerService.parseIntegerSwitch(newValue, true);
+            case LOCKSCREEN_CHARGING_ANIMATION_STYLE:
+                mChargingAnimation =
+                        TunerService.parseInteger(newValue, 1);
                 if (mKeyguardIndicationController != null)
-                    mKeyguardIndicationController.updateChargingIndication(showChargingAnimation);
+                    mKeyguardIndicationController.updateChargingIndication(mChargingAnimation);
                 break;
             case GAMING_MODE_ACTIVE:
                 mGamingModeActivated =
