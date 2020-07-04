@@ -123,8 +123,6 @@ public class NotificationPanelView extends PanelView implements
             "global:" + Settings.Global.LOCKSCREEN_ENABLE_QS;
     private static final String HIDE_LOCKSCREEN_STATUS_BAR =
             "system:" + Settings.System.HIDE_LOCKSCREEN_STATUS_BAR;
-    private static final String PULSE_AMBIENT_LIGHT =
-            "system:" + Settings.System.PULSE_AMBIENT_LIGHT;
 
     private static final Rect mDummyDirtyRect = new Rect(0, 0, 1, 1);
 
@@ -259,7 +257,6 @@ public class NotificationPanelView extends PanelView implements
     private final KeyguardMonitor mKeyguardMonitor;
     private boolean mStatusBarAllowedOnSecureKeyguard;
     private NotificationLightsView mPulseLightsView;
-    private boolean mPulseLights;
 
     private Runnable mHeadsUpExistenceChangedRunnable = new Runnable() {
         @Override
@@ -399,7 +396,6 @@ public class NotificationPanelView extends PanelView implements
         tunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
         tunerService.addTunable(this, LOCKSCREEN_ENABLE_QS);
         tunerService.addTunable(this, HIDE_LOCKSCREEN_STATUS_BAR);
-        tunerService.addTunable(this, PULSE_AMBIENT_LIGHT);
     }
 
     @Override
@@ -435,10 +431,6 @@ public class NotificationPanelView extends PanelView implements
                 break;
             case HIDE_LOCKSCREEN_STATUS_BAR:
                 mHideLockscreenStatusBar =
-                        TunerService.parseIntegerSwitch(newValue, false);
-                break;
-            case PULSE_AMBIENT_LIGHT:
-                mPulseLights =
                         TunerService.parseIntegerSwitch(newValue, false);
                 break;
             default:
@@ -2954,24 +2946,17 @@ public class NotificationPanelView extends PanelView implements
         DozeParameters dozeParameters = DozeParameters.getInstance(mContext);
         final boolean animatePulse = !dozeParameters.getDisplayNeedsBlanking()
                 && dozeParameters.getAlwaysOn();
-
         if (animatePulse) {
             mAnimateNextPositionUpdate = true;
         }
-        // Do not animate the clock when waking up from a pulse.
-        // The height callback will take care of pushing the clock to the right position.
-        if (!mPulsing && !mDozing) {
-            mAnimateNextPositionUpdate = false;
-        }
-        if ((mPulseLightsView != null) && mPulseLights) {
-            mPulseLightsView.setVisibility(mPulsing ? View.VISIBLE : View.GONE);
-            if (mPulsing) {
-                mPulseLightsView.animateNotification();
-                mPulseLightsView.setPulsing(pulsing);
-            }
-        }
+//        if ((mPulseLightsView != null) && pulseLights) {
+//            mPulseLightsView.setVisibility(mPulsing ? View.VISIBLE : View.GONE);
+//            if (mPulsing) {
+//                mPulseLightsView.animateNotification();
+//                mPulseLightsView.setPulsing(pulsing);
+//            }
+//        }
         mNotificationStackScroller.setPulsing(pulsing, animatePulse);
-//        mKeyguardStatusView.setPulsing(pulsing);
         mKeyguardStatusView.setPulsing(pulsing, animatePulse);
     }
 
