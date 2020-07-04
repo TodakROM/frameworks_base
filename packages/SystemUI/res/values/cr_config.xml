@@ -44,4 +44,7 @@
 
     <bool name="config_relocatePieOnRotation">true</bool>
     <bool name="config_forcePieCentered">false</bool>
+
+    <!-- FPSInfoService FPS node file path -->
+    <string name="config_fpsInfoSysNode" translatable="false"></string>
 </resources>
