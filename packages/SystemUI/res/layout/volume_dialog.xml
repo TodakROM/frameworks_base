@@ -1,6 +1,6 @@
 <!--
      Copyright (C) 2015 The Android Open Source Project
-
+     Todak 2020
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -48,7 +48,7 @@
                     android:scaleType="fitCenter"
                     android:padding="@dimen/volume_dialog_ringer_icon_padding"
                     android:background="@drawable/ripple_drawable_20dp_transparent"
-                    android:tint="@android:color/white"
+                    android:tint="?android:attr/colorAccent"
                     android:layout_gravity="center"  
                     android:paddingRight="@dimen/volume_dialog_rows_padding_right"                                                            
                     android:soundEffectsEnabled="false" />
@@ -112,7 +112,7 @@
                     android:layout_marginRight="2dp"
                     android:layout_marginLeft="2dp"
                     android:background="@drawable/ripple_drawable_20dp"
-                    android:tint="?android:attr/textColorSecondary"
+                    android:tint="?android:attr/colorAccent"
                     android:contentDescription="@string/accessibility_volume_settings"
                     android:padding="8dp" />
             </FrameLayout>
